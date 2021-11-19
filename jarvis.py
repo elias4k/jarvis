@@ -275,9 +275,7 @@ def get_fecha_nac_vacunate(dni):
                 select_sexo.select_by_visible_text(sexo)
                 driver.execute_script("document.getElementById('codigo').setAttribute('type', 'password')")
                 driver.find_element_by_xpath('//*[@id="codigo"]').send_keys(cod)
-                # sleep(5)
                 driver.find_element_by_xpath('//*[@id="app"]/main/div/div/div/div/div[2]/form/input[2]').click()
-
                 fecha_nac = driver.find_element_by_xpath(
                     '//*[@id="app"]/main/div[1]/div/div/div/div[2]/ul/li[6]').text
                 fecha_nac = fecha_nac.split("(")[0]
