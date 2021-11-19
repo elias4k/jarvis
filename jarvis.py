@@ -390,7 +390,13 @@ def browser():
         options.add_argument('--start-maximized')
         web_driver = webdriver.Chrome('chromedriver.exe', options=options)
     except:
-        web_driver = webdriver.Firefox()
+        try:
+            print("Error al abrir Chrome")
+            web_driver = webdriver.Edge()
+        except:
+            print("Error al abrir Edge")
+            print("Abriendo con Firefox")
+            web_driver = webdriver.Firefox()
     return web_driver
 
 
