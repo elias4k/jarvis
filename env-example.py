@@ -2,8 +2,9 @@ def env(word):
     lista = {
         "telegram-token": "[Token de telegram obtenido de @BotFather]", 
         "cod-vacuna": "[Codigo-verificacion-vacuna]",
-        "mongo_uri": "[ ConectionString]",
+        "mongo_uri": "[ConectionString]",
         "path-chrome": '[Path del ejecutable chromedriver]',
+        "nro_tramite": ""
     }
     return lista.get(word)
 
