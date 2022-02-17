@@ -12,7 +12,7 @@ from datetime import datetime
 from env import *
 #from voicy import Voicy
 
-bot = telebot.TeleBot(env("telegram-token"), parse_mode=None)
+bot = telebot.TeleBot("2102316937:AAGmAMknKsYazUlQSgyY7ipTwcWhFvqe-iI") # Token Provisorio @E4K01_bot o https://t.me/E4K01_bot
 
 
 def message_response(message):
