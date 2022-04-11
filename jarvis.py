@@ -67,6 +67,8 @@ def command_manager(mensaje, message):
         return command(data)
     elif comando == "MESA":
         return get_mesa(data, message)
+    elif actions[0] == "SLUG":
+        return slugger(data)
     elif comando == "NUMBERS":
         return get_numbers(message, start="", limit=4)
     elif comando == "TALK":
@@ -128,6 +130,22 @@ def talk(mensaje):
     # Voicy.say(mensaje)
     print(not_implemented())
     return "Listo."
+
+
+def slugger(text):
+    text = normalizeAccents(text)
+    text = text.lower()
+    text = text.replace('—', '-')
+    text = text.replace(' ', '-')
+    text = text.replace('°', '').replace('º', '')
+    text = text.lstrip('-')
+    text = text.rstrip('-')
+    print(text)
+    return text
+
+
+def normalizeAccents(text):
+    return limpiar_acentos(text)
 
 
 def get_mesa(msg, message):
