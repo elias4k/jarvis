@@ -10,9 +10,11 @@ from time import sleep, time
 from selenium.webdriver.support.ui import Select
 from datetime import datetime
 from env import *
-#from voicy import Voicy
 
-bot = telebot.TeleBot("2102316937:AAGmAMknKsYazUlQSgyY7ipTwcWhFvqe-iI") # Token Provisorio @E4K01_bot o https://t.me/E4K01_bot
+# from voicy import Voicy
+
+bot = telebot.TeleBot(
+    "2102316937:AAGmAMknKsYazUlQSgyY7ipTwcWhFvqe-iI")  # Token Provisorio @E4K01_bot o https://t.me/E4K01_bot
 
 
 def message_response(message):
@@ -36,7 +38,7 @@ def keyword_manager(message):
     elif message.text.upper().find("NUMBERS") >= 0:
         if message.text.upper().find("NUMBERS=") >= 0:
             start = message.text.upper().find("NUMBERS=") + len("NUMBERS=")
-            msg_temp = message.text.upper()[start:]  
+            msg_temp = message.text.upper()[start:]
             if msg_temp.find(" ") >= 0:
                 msg_temp = msg_temp[:msg_temp.find(" ")]
             start_word = msg_temp
@@ -123,17 +125,17 @@ def open_link(data):
 def talk(mensaje):
     mensaje = mensaje.replace(",", " ")
     print(mensaje)
-    #Voicy.say(mensaje)
+    # Voicy.say(mensaje)
     print(not_implemented())
     return "Listo."
 
-    
+
 def get_mesa(msg, message):
     msg = msg.replace("\n", ",").replace(" ", ",").replace(" ", "")
     array = msg.split(",")
     mensajes = []
-    #Voicy.say(mensaje)
-    for mesa in array:        
+    # Voicy.say(mensaje)
+    for mesa in array:
         if mesa.isdigit():
             mensajes.append(bot.send_message(message.chat.id, Mesa.get(mesa), disable_notification=True).message_id)
     sleep(10)
@@ -465,7 +467,7 @@ def comandos_helper(message):
             response = response + row + "\n"
     except Exception as ex:
         response = ex
-    #bot.send_message(message.chat.id, get_saludo() + " " + message.chat.first_name)
+    # bot.send_message(message.chat.id, get_saludo() + " " + message.chat.first_name)
     bot.send_message(message.chat.id, response)
 
 
