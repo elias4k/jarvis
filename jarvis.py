@@ -1,12 +1,5 @@
-# pip install pip 
-# pip install pyTelegramBotAPI selenium pymongo
 import os
 import telebot
-from selenium import webdriver
-import requests
-from time import sleep, time
-from selenium.webdriver.support.ui import Select
-from datetime import datetime
 
 # from voicy import Voicy
 
@@ -28,23 +21,7 @@ def message_response(message):
 
 
 def keyword_manager(message):
-    if message.text.upper().find("Tu ID de telegram es ".upper()) >= 0:
-        bot.send_message(message.chat.id, str(message.forward_from).replace(",", ',\n'))
-        #return add_telegram_user(message)
-
-    elif message.text.upper().find("NUMBERS") >= 0:
-        if message.text.upper().find("NUMBERS=") >= 0:
-            start = message.text.upper().find("NUMBERS=") + len("NUMBERS=")
-            msg_temp = message.text.upper()[start:]
-            if msg_temp.find(" ") >= 0:
-                msg_temp = msg_temp[:msg_temp.find(" ")]
-            start_word = msg_temp
-        else:
-            start_word = ":"
-        response = get_numbers(message, start=start_word, limit=4)
-        return response
-
-    elif message.text.upper().find(":") >= 0:
+    if message.text.upper().find(":") >= 0:
         response = command_manager(message.text.upper(), message)
         return response
     else:
@@ -67,28 +44,18 @@ def command_manager(mensaje, message):
         return slugger(data)
     elif comando == "NUMBERS":
         return get_numbers(message, start="", limit=4)
-    elif comando == "TALK":
-        return talk(data)
     elif comando == "SUM":
         return sumar(data)
-    elif comando == "APAGAR":
-        print("Apagar equipo: \n")
-        return command("shutdown -s")
     else:
         return "No entiendo tu comando"
 
 
 def not_implemented():
-    response = "Esto todavia no esta implementado"
-    print(response)
-    return response
+    return "Esto todavia no esta implementado"
 
 
 def sumar(numeros):
-    numeros = numeros.replace(".", "")
-    numeros = numeros.replace("\t", " ")
-    numeros = numeros.replace("+", " ")
-    numeros = numeros.split()
+    numeros = numeros.replace(".", "").replace("\t", " ").replace("+", " ").split()
     result = 0
     for num in numeros:
         if num.isdigit():
@@ -105,19 +72,33 @@ def talk(mensaje):
 
 
 def slugger(text):
+    char = '-'
     text = normalizeAccents(text)
     text = text.lower()
-    text = text.replace('—', '-')
-    text = text.replace(' ', '-')
-    text = text.replace('(', '-')
-    text = text.replace(')', '-')
-    text = text.replace(',', '-')
-    text = text.replace('.', '-')
+    text = text.replace('—', char)
+    text = text.replace(' ', char)
+    text = text.replace('(', char)
+    text = text.replace(')', char)
+    text = text.replace(',', char)
+    text = text.replace('.', char)
     text = text.replace('°', '').replace('º', '')
-    text = text.replace('--', '-')
-    text = text.lstrip('-')
-    text = text.rstrip('-')
-    print(text)
+    text = text.replace('--', char)
+    text = text.lstrip(char)
+    text = text.rstrip(char)
+    return text
+
+
+def limpiar_acentos(text):
+    text = text.replace("á", "a")
+    text = text.replace("é", "e")
+    text = text.replace("í", "i")
+    text = text.replace("ó", "o")
+    text = text.replace("ú", "u")
+    text = text.replace("Á", "A")
+    text = text.replace("É", "E")
+    text = text.replace("Í", "I")
+    text = text.replace("Ó", "O")
+    text = text.replace("Ú", "U")
     return text
 
 
@@ -126,6 +107,7 @@ def normalizeAccents(text):
 
 
 def command(comando):
+    return not_implemented()
     try:
         if comando.upper() == "APAGAR":
             comando = "shutdown -s"
@@ -213,20 +195,12 @@ def comandos_helper(message):
             "",
             "/id: para obtener tu ID de Telegram.",
             "",
-            "resul: Para obtener el listado de los testeos realizados a esa persona. se debe enviar DNI y Nro de tramite separados por un guión. Ej:",
-            "resul:35123456-00356813548",
-            "",
-            "Infovacuna: Obtiene informacion del turno de vacunacion. Se pueden consultar varios a la vez indicando el sexo con F o M junto a cada DNI. Ej:",
-            "Infovacuna:m40.111666, f17739478, 2.567.893M, 10333f890",
-            "",
             "Cualquier consulta, comunicarse con el desarrollador"
         ]
-
         for row in array:
             response = response + row + "\n"
     except Exception as ex:
         response = ex
-    # bot.send_message(message.chat.id, get_saludo() + " " + message.chat.first_name)
     bot.send_message(message.chat.id, response)
 
 
