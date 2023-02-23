@@ -1,5 +1,6 @@
 import os
 import telebot
+from env import *
 
 # from voicy import Voicy
 
