@@ -207,6 +207,8 @@ def comandos_helper(message):
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Hola " + message.chat.first_name)
+    bot.send_message(get_telegram_id("elias"), message.chat.first_name + " ha iniciado el bot.")
+    bot.send_message(get_telegram_id("elias"), str(message.chat.id))
 
 @bot.message_handler(commands=['id'])
 def send_id(message):
