@@ -5,3 +5,9 @@ services:
     build: .
     volumes:
       - .:/code
+  mongo:
+    container_name: mongo-db
+    image: mongo
+    volumes:
+      - "./db:/data/db"
+    ports: ["27017:27017"]
